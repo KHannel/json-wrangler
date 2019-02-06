@@ -1,0 +1,8 @@
+<div>
+  <p>{{ key }}</p>
+
+  <div *ngFor="let data of value">
+    <div *ngIf="type.isString(data)">{{ data }}</div>
+    <lib-json-wrangler *ngIf="type.isObject(data)" [json]="data"></lib-json-wrangler>
+  </div>
+</div>
