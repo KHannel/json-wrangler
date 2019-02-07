@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FirstNameComponent } from './components/first-name/first-name.component';
+import { RelativesComponent } from './components/relatives/relatives.component';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  rules = [];
+  rules = [
+    {
+      path: 'firstName',
+      component: FirstNameComponent
+    },
+    {
+      path: 'relatives',
+      component: RelativesComponent
+    }
+  ];
 
   json = {
     firstName: 'Test',

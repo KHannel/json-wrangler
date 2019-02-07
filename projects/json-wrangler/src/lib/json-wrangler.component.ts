@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { TypeService } from '../services/type.service';
 import defaultRules from './default-rules';
+import { TypeService } from './services/type.service';
 
 @Component({
   selector: 'lib-json-wrangler',
@@ -15,7 +15,7 @@ export class JsonWranglerComponent implements OnInit {
   container: ViewContainerRef;
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
+    private resolver: ComponentFactoryResolver,
     private type: TypeService
   ) {}
 
@@ -27,9 +27,13 @@ export class JsonWranglerComponent implements OnInit {
     if (typeof this.json === 'object') {
       Object.keys(this.json).forEach(key => {
         const value = this.json[key];
-        const valueType = typeof value;
+        console.log(`iteration loop - ${key}`);
 
         const matchingRule = this.rules.find(rule => {
+          if (rule.path === key) {
+            return true;
+          }
+
           switch (rule.type) {
             case 'array':
               return this.type.isArray(value);
@@ -41,14 +45,16 @@ export class JsonWranglerComponent implements OnInit {
         });
 
         if (matchingRule) {
-          const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-            matchingRule.component
-          );
-          const componentRef = this.container.createComponent(componentFactory);
-          (<any>componentRef.instance).key = key;
-          (<any>componentRef.instance).value = value;
+          this.createComponent(matchingRule.component, key, value);
         }
       });
     }
+  }
+
+  private createComponent(component, key, value) {
+    const componentFactory = this.resolver.resolveComponentFactory(component);
+    const componentRef = this.container.createComponent(componentFactory);
+    (<any>componentRef.instance).key = key;
+    (<any>componentRef.instance).value = value;
   }
 }
