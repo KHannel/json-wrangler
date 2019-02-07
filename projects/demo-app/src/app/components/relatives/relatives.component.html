@@ -1,0 +1,7 @@
+<div>
+  <p>{{ key }}</p>
+
+  <div *ngFor="let data of value">
+    <lib-json-wrangler [json]="data" [rules]="rules"></lib-json-wrangler>
+  </div>
+</div>
