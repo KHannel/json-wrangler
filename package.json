@@ -61,13 +61,13 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      "@semantic-release/npm",
       [
-        "@semantic-release/github",
+        "@semantic-release/npm",
         {
           "pkgRoot": "./dist/json-wrangler"
         }
       ],
+      "@semantic-release/github",
       [
         "@semantic-release/git",
         {
