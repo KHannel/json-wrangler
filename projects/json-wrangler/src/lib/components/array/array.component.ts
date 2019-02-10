@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TypeService } from 'projects/json-wrangler/src/services/type.service';
+import { TypeService } from '../../../services/type.service';
 
 @Component({
   selector: 'app-array',
